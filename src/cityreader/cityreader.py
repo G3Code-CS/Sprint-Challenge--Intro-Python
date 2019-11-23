@@ -14,6 +14,22 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
+
+# Class - City
+
+
+class City:
+      def __init__(self, name, lat, lon):
+            self.name = name
+            self.lat = lat
+            self.lon = lon
+      
+      def __repr__(self):
+            return f"{self.name}:{self.lat}:{self.lon}"
+
+      def __str__(self):
+            return f"{self.name}:{self.lat}:{self.lon}"
+
 cities = []
 
 def cityreader(cities=[]):
