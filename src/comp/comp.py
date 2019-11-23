@@ -32,6 +32,7 @@ print(a)
 # whose name ends in "e".
 print("Ends with e:")
 b = []
+b = [i.name for i in humans if (i.name[-1] == 'e')]
 print(b)
 
 # Write a list comprehension that creates a list of names of everyone
