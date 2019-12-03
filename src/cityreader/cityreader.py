@@ -1,3 +1,4 @@
+import csv
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
 
@@ -14,13 +15,37 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
+
+# Class - City
+
+
+class City:
+      def __init__(self, name, lat, lon):
+            self.name = name
+            self.lat = lat
+            self.lon = lon
+      
+      def __repr__(self):
+            return f"{self.name}:{self.lat}:{self.lon}"
+
+      def __str__(self):
+            return f"{self.name}:{self.lat}:{self.lon}"
+
 cities = []
 
 def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
+    with open('cities.csv') as csv_file:
+      csv_reader = csv.reader(csv_file, delimiter=',')
+      line_count = 0
+      for row in csv_reader:
+            if line_count==0:
+                  line_count += 1
+            else:
+                  cities.append(City(row[0], float(row[3].rstrip("0")), float(row[4].rstrip("0"))))
+
     return cities
 
 cityreader(cities)
@@ -60,6 +85,12 @@ for c in cities:
 
 # TODO Get latitude and longitude values from the user
 
+# GETTING USER INPUT
+lat1 = input("\n Enter the lat1 value: ")
+lon1 = input("\n Enter the lon1 value: ")
+lat2 = input("\n Enter the lat2 value: ")
+lon2 = input("\n Enter the lon2 value: ")
+
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
   within = []
@@ -68,4 +99,14 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
+  if (lat1>lat2):
+        temp = lat2
+        lat2 = lat1
+        lat1 = temp
+  if (lon1>lon2):
+        temp = lon2
+        lon2 = lon1
+        lon1 = temp
+  
+  within = [city for city in cities if (float(city.lat) > float(lat1) and float(city.lat) < float(lat2) and float(city.lon) > float(lon1) and float(city.lon) < float(lon2))]
   return within
